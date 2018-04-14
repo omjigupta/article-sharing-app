@@ -1,7 +1,7 @@
 const usercontroller = require('./../controllers/user')
 
 module.exports = (router) => {
-
+  
     /**
      * get a user
      */
