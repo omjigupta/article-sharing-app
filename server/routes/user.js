@@ -1,7 +1,7 @@
 const usercontroller = require('./../controllers/user')
 
 module.exports = (router) => {
-  
+
     /**
      * get a user
      */
@@ -22,4 +22,11 @@ module.exports = (router) => {
     router
         .route('/user/follow')
         .post(usercontroller.followUser)
+
+    /**
+     * get a user profile
+     */
+    router
+        .route('/user/profile/:id')
+        .get(usercontroller.getUserProfile)
 }

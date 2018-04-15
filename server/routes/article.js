@@ -18,4 +18,17 @@ module.exports = (router) => {
         .route('/article')
         .post(multipartWare, articlecontroller.addArticle)
 
+    /**
+     * comment on an article
+     */
+    router
+        .route('/article/comment')
+        .post(articlecontroller.commentArticle)
+    /**
+     * get a particlular article to view
+     */
+    router
+        .route('/article/:id')
+        .get(articlecontroller.getArticle)
+
 }

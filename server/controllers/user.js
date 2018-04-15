@@ -29,5 +29,18 @@ module.exports = {
                 return res.json({msg: "followed"})
             })
         }).catch(next)
+    },
+    getUserProfile: (req, res, next) => {
+        User.findById(req.params.id).then
+        ((_user) => {
+            return User.find({'following': req.params.id}).then((_users)=>{
+                _users.forEach((user_)=>{
+                    _user.addFollower(user_)
+                })
+                return Article.find({'author': req.params.id}).then((_articles)=> {
+                    return res.json({ user: _user, articles: _articles })
+                })
+            })
+        }).catch((err)=>console.log(err))
     }
 }

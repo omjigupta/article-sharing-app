@@ -8,7 +8,7 @@ module.exports = {
         let { text, title, claps, description } = req.body
         if (req.files.image) {
             cloudinary.uploader.upload(req.files.image.path, (result) => {
-                let obj = { text, title, claps, description, feature_img: result.url != null ? result.url : 'some/url' }
+                let obj = { text, title, claps, description, feature_img: result.url != null ? result.url : '' }
                 saveArticle(obj)
             },{
                 resource_type: 'image',
@@ -17,7 +17,7 @@ module.exports = {
                 ]
             })
         }else {
-            saveArticle({ text, title, claps, description, feature_img: 'some/image' })
+            saveArticle({ text, title, claps, description, feature_img: '' })
         }
         function saveArticle(obj) {
             new Article(obj).save((err, article) => {
@@ -46,5 +46,34 @@ module.exports = {
                 res.send(article)
             next()
         })
+    },
+    /**
+     * article_id
+     */
+    getArticle: (req, res, next) => {
+        Article.findById(req.params.id)
+        .populate('author')
+        .populate('comments.author').exec((err, article)=> {
+            if (err)
+                res.send(err)
+            else if (!article)
+                res.send(404)
+            else
+                res.send(article)
+            next()
+        })
+    },
+    /**
+     * comment, author_id, article_id
+     */
+    commentArticle: (req, res, next) => {
+        Article.findById(req.body.article_id).then((article)=> {
+            return article.comment({
+                author: req.body.author_id,
+                text: req.body.comment
+            }).then(() => {
+                return res.json({msg: "Done"})
+            })
+        }).catch(next)
     }
 }
