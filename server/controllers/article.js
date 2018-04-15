@@ -64,6 +64,16 @@ module.exports = {
         })
     },
     /**
+     * article_id
+     */
+    clapArticle: (req, res, next) => {
+        Article.findById(req.body.article_id).then((article)=> {
+            return article.clap().then(()=>{
+                return res.json({msg: "Done"})
+            })
+        }).catch(next)
+    },
+    /**
      * comment, author_id, article_id
      */
     commentArticle: (req, res, next) => {

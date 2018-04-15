@@ -14,7 +14,8 @@
     "mongoose": "^5.0.14",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
-    "react-scripts": "1.1.4"
+    "react-scripts": "1.1.4",
+    "validator": "^9.4.1"
   },
   "scripts": {
     "start": "react-scripts start",

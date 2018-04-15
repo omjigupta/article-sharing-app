@@ -31,4 +31,11 @@ module.exports = (router) => {
         .route('/article/:id')
         .get(articlecontroller.getArticle)
 
+    /**
+     * clap on an article
+     */
+    router
+        .route('/article/clap')
+        .post(articlecontroller.clapArticle)
+
 }
